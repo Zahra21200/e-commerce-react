@@ -1,8 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../Store/action';
 export default function Singleproduct() {
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(product_details)); 
+  };
   const [product_details,setDetails]=useState();
   let params=useParams()
   let product_id=params.id;
@@ -46,7 +52,7 @@ export default function Singleproduct() {
                   color: 'white',
                   marginTop: 'auto',
                 }}
-              >Add To Cart</button>
+                onClick={handleAddToCart}>Add To Cart</button>
 
           </div>
         </div>
