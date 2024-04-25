@@ -1,0 +1,13 @@
+.empty-cart-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 200px);
+}
+
+.empty-cart-text {
+  color: #af8393; 
+  font-weight: bold;
+  font-size: 80px;
+}
+

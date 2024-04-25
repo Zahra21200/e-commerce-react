@@ -1,0 +1,14 @@
+.empty-wishlist-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 200px); /* Adjust the value as needed */
+  }
+  
+  .empty-wishlist-text {
+    color: #af8393; /* Adjust color as needed */
+    font-weight: bold;
+    font-size: 80px;
+  }
+
+  

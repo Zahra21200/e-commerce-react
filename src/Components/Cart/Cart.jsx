@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { removeFromCart, updateQuantity } from '../../Store/action';
-
+import "./Cart.css"
 const Cart = ({ cartItems, removeFromCart, updateQuantity }) => {
   const handleRemoveItem = (productId) => {
     const confirmRemove = window.confirm('Are you sure you want to remove this item from the cart?');
@@ -22,7 +22,9 @@ const Cart = ({ cartItems, removeFromCart, updateQuantity }) => {
     <div>
       <h2>Cart</h2>
       {cartItems.length === 0 ? (
-        <p>Your cart is empty</p>
+        <div className="empty-cart-message">
+          <p className="empty-cart-text">Your cart is empty</p>
+        </div>
       ) : (
         <div>
           {cartItems.map((item) => (
@@ -68,7 +70,7 @@ const Cart = ({ cartItems, removeFromCart, updateQuantity }) => {
 };
 
 const mapStateToProps = (state) => ({
-  cartItems: state.items,
+  cartItems: state.cart.items,
 });
 
 const mapDispatchToProps = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromFavorites } from '../../Store/action';
-
+import "./WishList.css"
 export default function Wishlist() {
   const dispatch = useDispatch();
   const favorites = useSelector(state => state.favorites.items);
@@ -12,9 +12,11 @@ export default function Wishlist() {
 
   return (
     <div>
-      <h2>My Wishlist</h2>
       {favorites.length === 0 ? (
-        <p>Your wishlist is empty.</p>
+        <div className="empty-wishlist-message">
+          <p className="empty-wishlist-text">Your wish list is empty.</p>
+
+        </div>
       ) : (
         <div className="row">
           {favorites.map((favorite, index) => (

@@ -1,0 +1,19 @@
+.navbar-nav .nav-link {
+    color: #292930; 
+    transition: color 0.3s; 
+  }
+  
+  .navbar-nav .nav-link:hover {
+    color: #af8393;
+    
+  }
+  
+  .navbar-nav .nav-link.active {
+    color: #af8393; 
+  }
+  .badge{
+    background-color: #af8393;
+  }
+
+
+  

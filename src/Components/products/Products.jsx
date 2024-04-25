@@ -32,7 +32,7 @@ export default function Products() {
 
   async function getProducts() {
     try {
-      const { data: allProducts } = await axios.get('http://makeup-api.herokuapp.com/api/v1/products.json?brand=smashbox');
+      const { data: allProducts } = await axios.get('http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline');
       console.log(allProducts);
       const offset = (currentPage - 1) * itemsPerPage;
       const productsOnPage = allProducts.slice(offset, offset + itemsPerPage);
@@ -58,7 +58,7 @@ export default function Products() {
 
   const handleSearch = async () => {
     try {
-      const { data: allProducts } = await axios.get('http://makeup-api.herokuapp.com/api/v1/products.json?brand=smashbox');
+      const { data: allProducts } = await axios.get('http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline');
       const searchedProducts = allProducts.filter(product =>
         product.name.toLowerCase().includes(searchQuery.toLowerCase())
       );

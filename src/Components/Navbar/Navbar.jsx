@@ -1,15 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import "./Navbar.css"
 const Navbar = ({ cartItemCount }) => {
   return (
     <nav className="navbar navbar-expand-sm navbar-light bg-light">
       <div className="container">
-        <Link className="navbar-brand" to="#">
+        <NavLink className="navbar-brand" to="#">
           <i className="fa-solid text-main fa-cart-shopping"></i>
           <span className='fw-bold'>Maybelline</span>
-        </Link>
+        </NavLink>
         <button
           className="navbar-toggler d-lg-none"
           type="button"
@@ -23,18 +23,18 @@ const Navbar = ({ cartItemCount }) => {
         </button>
         <div className="collapse navbar-collapse" id="collapsibleNavId">
           <div className="navbar-nav me-auto mt-2 mt-lg-0">
-            <Link className="nav-link" to="home">Home</Link>
-            <Link className="nav-link" to="wishlist">Wish List</Link>
-            <Link className="nav-link" to="category">Categories</Link>
-            <Link className="nav-link" to="cart">
+            <NavLink className="nav-link" activeClassName="active" to="/home">Home</NavLink>
+            <NavLink className="nav-link" activeClassName="active" to="/wishlist">Wish List</NavLink>
+            <NavLink className="nav-link" activeClassName="active" to="/category">Categories</NavLink>
+            <NavLink className="nav-link" activeClassName="active" to="/cart">
               <i className="fa-solid text-main fa-cart-shopping"></i> Cart 
-              <span className="badge bg-secondary">{cartItemCount}</span>
-            </Link>
+              <span className="badge ">{cartItemCount}</span>
+            </NavLink>
           </div>
           <div className="navbar-nav ms-auto mt-2 mt-lg-0">
-            <Link className="nav-link" to="login">Login</Link>
-            <Link className="nav-link" to="register">Register</Link>
-            <Link className="nav-link">Logout</Link>
+            <NavLink className="nav-link" activeClassName="active" to="/login">Login</NavLink>
+            <NavLink className="nav-link" activeClassName="active" to="/register">Register</NavLink>
+            <NavLink className="nav-link" activeClassName="active">Logout</NavLink>
           </div>
         </div>
       </div>
