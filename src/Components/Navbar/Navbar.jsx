@@ -1,8 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import "./Navbar.css"
-const Navbar = ({ cartItemCount }) => {
+import { clearCart } from '../../Store/action'; 
+import "./Navbar.css";
+
+const Navbar = ({ cartItemCount, clearCart }) => {
+  const handleLogout = () => {
+    localStorage.clear();
+    clearCart();
+  };
+
   return (
     <nav className="navbar navbar-expand-sm navbar-light bg-light">
       <div className="container">
@@ -33,8 +40,7 @@ const Navbar = ({ cartItemCount }) => {
           </div>
           <div className="navbar-nav ms-auto mt-2 mt-lg-0">
             <NavLink className="nav-link" activeClassName="active" to="/login">Login</NavLink>
-            <NavLink className="nav-link" activeClassName="active" to="/register">Register</NavLink>
-            <NavLink className="nav-link" activeClassName="active">Logout</NavLink>
+            <NavLink className="nav-link" activeClassName="active" onClick={handleLogout} to="/">Logout</NavLink>
           </div>
         </div>
       </div>
@@ -46,4 +52,8 @@ const mapStateToProps = (state) => ({
   cartItemCount: state.cart.items.length,
 });
 
-export default connect(mapStateToProps)(Navbar);
+const mapDispatchToProps = (dispatch) => ({
+  clearCart: () => dispatch(clearCart()), 
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

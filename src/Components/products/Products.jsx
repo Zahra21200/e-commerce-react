@@ -5,14 +5,30 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../Store/action';
 import { addToFavorites, removeFromFavorites } from '../../Store/action';
+import Login from './Login';
+import { Redirect } from 'react-router-dom';
 
 export default function Products() {
   const dispatch = useDispatch();
   const favorites = useSelector(state => state.favorites.items);
+  const isAuthenticated = localStorage.getItem('authToken'); // Assuming 'authToken' is stored upon login
 
-  const handleAddToCart = (product) => {
+  // const handleAddToCart = (product) => {
+  //   dispatch(addToCart(product));
+  // };
+  // Assume this is where you handle the addition of items to the cart
+const handleAddToCart = (product) => {
+  const userDataString = localStorage.getItem('userData');
+
+  const userData = JSON.parse(userDataString);
+
+  if (userData && userData.username && userData.password) {
     dispatch(addToCart(product));
-  };
+  } else {
+    alert('Please log in to add items to the cart.');
+  }
+};
+
 
   const handleToggleFavorite = (product) => {
     const isFavorite = favorites.some(item => item.id === product.id);

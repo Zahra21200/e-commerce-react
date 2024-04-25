@@ -4,6 +4,7 @@ export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const UPDATE_QUANTITY = 'UPDATE_QUANTITY';
 export const ADD_TO_FAVORITES = 'ADD_TO_FAVORITES';
 export const REMOVE_FROM_FAVORITES = 'REMOVE_FROM_FAVORITES';
+export const CLEAR_CART = 'CLEAR_CART';
 
 export const addToFavorites = (product) => ({
   type: ADD_TO_FAVORITES,
@@ -28,3 +29,10 @@ export const removeFromCart = (productId) => ({
   type: REMOVE_FROM_CART,
   payload: productId,
 });
+
+export const clearCart = () => {
+ 
+  return {
+    type: 'CLEAR_CART',
+  };
+};
