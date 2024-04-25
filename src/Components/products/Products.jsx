@@ -2,16 +2,38 @@ import React, { useEffect, useState } from 'react';
 import { ColorRing } from 'react-loader-spinner';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../../Store/action';
+import { addToFavorites, removeFromFavorites } from '../../Store/action';
 
 export default function Products() {
+  const dispatch = useDispatch();
+  const favorites = useSelector(state => state.favorites.items);
+
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
+  };
+
+  const handleToggleFavorite = (product) => {
+    const isFavorite = favorites.some(item => item.id === product.id);
+    if (isFavorite) {
+      dispatch(removeFromFavorites(product.id));
+    } else {
+      dispatch(addToFavorites(product));
+    }
+  };
+
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(8); // Adjust the number of items per page as needed
+  const [itemsPerPage] = useState(8);
   const [totalPages, setTotalPages] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [noMatchesFound, setNoMatchesFound] = useState(false);
 
   async function getProducts() {
     try {
-      const { data: allProducts } = await axios.get('http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline');
+      const { data: allProducts } = await axios.get('http://makeup-api.herokuapp.com/api/v1/products.json?brand=smashbox');
+      console.log(allProducts);
       const offset = (currentPage - 1) * itemsPerPage;
       const productsOnPage = allProducts.slice(offset, offset + itemsPerPage);
       setProducts(productsOnPage);
@@ -21,13 +43,10 @@ export default function Products() {
       console.error('Error fetching products:', error);
     }
   }
-  
-  
-  
 
   useEffect(() => {
     getProducts();
-  }, [currentPage]); // Fetch products when the page changes
+  }, [currentPage]);
 
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
@@ -37,19 +56,64 @@ export default function Products() {
     setCurrentPage(currentPage - 1);
   };
 
+  const handleSearch = async () => {
+    try {
+      const { data: allProducts } = await axios.get('http://makeup-api.herokuapp.com/api/v1/products.json?brand=smashbox');
+      const searchedProducts = allProducts.filter(product =>
+        product.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setProducts(searchedProducts);
+      setNoMatchesFound(searchedProducts.length === 0);
+    } catch (error) {
+      console.error('Error searching products:', error);
+    }
+  };
+
+  const handleChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <div>
+      <div className="search-container mb-3">
+        <input
+          type="text"
+          placeholder="Search products by name"
+          value={searchQuery}
+          onChange={handleChange}
+          className="form-control"
+        />
+        <button onClick={handleSearch} className="btn btn-primary ml-2">
+          Search
+        </button>
+      </div>
+
+      {noMatchesFound && searchQuery !== '' && (
+        <div className="alert alert-warning" role="alert">
+          No matches found.
+        </div>
+      )}
+
       <div className='row'>
         {products.length > 0 ? (
           products.map((product, index) => (
             <div key={index} className='col-md-3 mb-3'>
-              <div className="product p-5" style={{
+              <div className="product position-relative p-5" style={{ // Added position-relative
                 boxShadow: 'rgba(145,158,171, .2) 0px 2px 4px -1px, rgba(145,158,171, .14) 0px 4px 5px 0px, rgba(145,158,171,.12) 0px 1px 10px 0px',
                 border: '1px solid #0aada',
                 display: 'flex',
                 flexDirection: 'column',
                 height: '100%',
               }}>
+                <button 
+                  className='btn btn-light position-absolute top-0 end-0 m-2'
+                  onClick={() => handleToggleFavorite(product)}>
+                  {favorites && favorites.some(item => item.id === product.id) ? (
+                    <i className="fa-solid fa-heart text-danger"></i>
+                  ) : (
+                    <i className="fa-solid fa-heart text-black"></i>
+                  )}
+                </button>
                 <Link to={`/product/${product.id}`}>
                   <img src={product.api_featured_image} className='w-100' alt={product.name} />
                   <h6>{product.name}</h6>
@@ -66,7 +130,7 @@ export default function Products() {
                     backgroundColor: '#0aada',
                     color: 'white',
                   }}
-                >
+                  onClick={() => handleAddToCart(product)}>
                   Add to cart
                 </button>
               </div>
@@ -86,11 +150,12 @@ export default function Products() {
           </div>
         )}
       </div>
+
       <div className="pagination mt-3">
-      <div className="pagination mt-3">
-        <button onClick={prevPage} className="btn btn-primary mr-2" disabled={currentPage === 1}>Previous</button>
-        <button onClick={nextPage} className="btn btn-primary" disabled={currentPage === totalPages}>Next</button>
-      </div>
+        <div className="pagination mt-3">
+          <button onClick={prevPage} className="btn btn-primary mr-2" disabled={currentPage === 1}>Previous</button>
+          <button onClick={nextPage} className="btn btn-primary" disabled={currentPage === totalPages}>Next</button>
+        </div>
       </div>
     </div>
   );

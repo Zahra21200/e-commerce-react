@@ -24,7 +24,7 @@ const Navbar = ({ cartItemCount }) => {
         <div className="collapse navbar-collapse" id="collapsibleNavId">
           <div className="navbar-nav me-auto mt-2 mt-lg-0">
             <Link className="nav-link" to="home">Home</Link>
-            <Link className="nav-link" to="product">Product</Link>
+            <Link className="nav-link" to="wishlist">Wish List</Link>
             <Link className="nav-link" to="category">Categories</Link>
             <Link className="nav-link" to="cart">
               <i className="fa-solid text-main fa-cart-shopping"></i> Cart 
@@ -43,7 +43,7 @@ const Navbar = ({ cartItemCount }) => {
 };
 
 const mapStateToProps = (state) => ({
-  cartItemCount: state.items.length, // Assuming your cart state structure
+  cartItemCount: state.cart.items.length,
 });
 
 export default connect(mapStateToProps)(Navbar);
