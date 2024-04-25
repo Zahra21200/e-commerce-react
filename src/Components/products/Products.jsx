@@ -97,7 +97,7 @@ export default function Products() {
       <div className='row'>
         {products.length > 0 ? (
           products.map((product, index) => (
-            <div key={index} className='col-md-3 mb-3'>
+            <div key={index} className='col-md-3 mb-3 '>
               <div className="product rounded shadow position-relative p-5" style={{ 
                 boxShadow: 'rgba(145,158,171, .2) 0px 2px 4px -1px, rgba(145,158,171, .14) 0px 4px 5px 0px, rgba(145,158,171,.12) 0px 1px 10px 0px',
                 border: '1px solid #0aada',
@@ -127,7 +127,8 @@ export default function Products() {
                   style={{
                     transition: 'transform 1s, opacity 1s',
                     transform: 'translateY(100%)',
-                    backgroundColor: '#0aada',
+                    backgroundColor: '#c6aeb9',
+                    borderColor:"#c6aeb9",
                     color: 'white',
                   }}
                   onClick={() => handleAddToCart(product)}>
@@ -153,8 +154,8 @@ export default function Products() {
 
       <div className="pagination mt-3">
         <div className="pagination mt-3">
-          <button onClick={prevPage} className="btn btn-primary mr-2" disabled={currentPage === 1}>Previous</button>
-          <button onClick={nextPage} className="btn btn-primary" disabled={currentPage === totalPages}>Next</button>
+          <button onClick={prevPage} style={{ backgroundColor: "#cdb8cc" }} className="btn  mr-2" disabled={currentPage === 1}>Previous</button>
+          <button onClick={nextPage} style={{ backgroundColor: "#cdb8cc" }} className="btn " disabled={currentPage === totalPages}>Next</button>
         </div>
       </div>
     </div>

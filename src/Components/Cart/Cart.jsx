@@ -28,7 +28,7 @@ const Cart = ({ cartItems, removeFromCart, updateQuantity }) => {
       ) : (
         <div>
           {cartItems.map((item) => (
-            <div className="row mb-3" key={item.id}>
+            <div className="row mb-3"  key={item.id}>
               <div className="col-md-3">
                 <img src={item.api_featured_image} alt={item.name} className="img-fluid" />
               </div>

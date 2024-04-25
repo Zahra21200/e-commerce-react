@@ -48,9 +48,11 @@ export default function Singleproduct() {
                 style={{ 
                   transition: 'transform 1s, opacity 1s', 
                   transform: 'translateY(100%)',
-                  backgroundColor: '#0aada',
+                  backgroundColor: '#c6aeb9',
                   color: 'white',
                   marginTop: 'auto',
+                  borderColor:"#c6aeb9",
+                  
                 }}
                 onClick={handleAddToCart}>Add To Cart</button>
 
