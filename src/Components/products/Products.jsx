@@ -130,7 +130,7 @@ const handleAddToCart = (product) => {
                     <i className="fa-solid fa-heart text-black"></i>
                   )}
                 </button>
-                <Link to={`/product/${product.id}`}>
+                <Link to={`/product/${product.id}`} style={{ color: '#885c67', textDecoration: 'none' }}>
                   <img src={product.api_featured_image} className='w-100' alt={product.name} />
                   <h6>{product.name}</h6>
                   <div className='d-flex justify-content-between'>

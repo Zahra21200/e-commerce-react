@@ -20,8 +20,8 @@ const Login = () => {
             console.log(values);
             // Assuming login is successful, store user data in local storage
             localStorage.setItem('userData', JSON.stringify(values));
-            // Redirect user to desired page after login
-            // You can use React Router's history or <Redirect> component for this
+            alert('Login successful you can add products to your cart now.');
+           
           }}
         >
           <Form>
@@ -45,15 +45,19 @@ const Login = () => {
               />
               <ErrorMessage name="password" component="div" className="text-danger" />
             </div>
-            <button type="submit"  style={{ 
-                 
-                  backgroundColor: '#c6aeb9',
-                  color: 'white',
-                  marginTop: '10px',
-                  marginLeft: '60px',
-                  borderColor:"#c6aeb9",
-                  
-                }} className="btn  btn-block">Login</button>
+            <button
+              type="submit"
+              style={{
+                backgroundColor: '#c6aeb9',
+                color: 'white',
+                marginTop: '10px',
+                marginLeft: '60px',
+                borderColor: '#c6aeb9',
+              }}
+              className="btn btn-block"
+            >
+              Login
+            </button>
           </Form>
         </Formik>
       </div>

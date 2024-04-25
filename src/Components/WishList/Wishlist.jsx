@@ -25,7 +25,13 @@ export default function Wishlist() {
                 <img src={favorite.api_featured_image} alt={favorite.name} style={{ maxWidth: '100%', height: 'auto' }} />
                 <h6>{favorite.name}</h6>
                 <p>{favorite.price}</p>
-                <button onClick={() => handleRemoveFromFavorites(favorite.id)}>Remove from Wishlist</button>
+                <button style={{
+                backgroundColor: '#c6aeb9',
+                color: 'white',
+                marginTop: '10px',
+                marginLeft: '60px',
+                borderColor: '#c6aeb9',
+              }} className="btn" onClick={() => handleRemoveFromFavorites(favorite.id)}>Remove from Wishlist</button>
               </div>
             </div>
           ))}
