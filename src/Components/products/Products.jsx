@@ -98,13 +98,13 @@ export default function Products() {
         {products.length > 0 ? (
           products.map((product, index) => (
             <div key={index} className='col-md-3 mb-3'>
-              <div className="product position-relative p-5" style={{ // Added position-relative
+              <div className="product rounded shadow position-relative p-5" style={{ 
                 boxShadow: 'rgba(145,158,171, .2) 0px 2px 4px -1px, rgba(145,158,171, .14) 0px 4px 5px 0px, rgba(145,158,171,.12) 0px 1px 10px 0px',
                 border: '1px solid #0aada',
                 display: 'flex',
                 flexDirection: 'column',
                 height: '100%',
-              }}>
+                }}>
                 <button 
                   className='btn btn-light position-absolute top-0 end-0 m-2'
                   onClick={() => handleToggleFavorite(product)}>
