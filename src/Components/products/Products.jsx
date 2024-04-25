@@ -11,7 +11,7 @@ import { Redirect } from 'react-router-dom';
 export default function Products() {
   const dispatch = useDispatch();
   const favorites = useSelector(state => state.favorites.items);
-  const isAuthenticated = localStorage.getItem('authToken'); // Assuming 'authToken' is stored upon login
+  
 
   // const handleAddToCart = (product) => {
   //   dispatch(addToCart(product));
@@ -45,24 +45,32 @@ const handleAddToCart = (product) => {
   const [totalPages, setTotalPages] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [noMatchesFound, setNoMatchesFound] = useState(false);
+  const [categoryFilter, setCategoryFilter] = useState('');
 
-  async function getProducts() {
-    try {
-      const { data: allProducts } = await axios.get('http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline');
-      console.log(allProducts);
-      const offset = (currentPage - 1) * itemsPerPage;
-      const productsOnPage = allProducts.slice(offset, offset + itemsPerPage);
-      setProducts(productsOnPage);
-      const total = Math.ceil(allProducts.length / itemsPerPage);
-      setTotalPages(total);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    }
+async function getProducts() {
+  try {
+    const { data: allProducts } = await axios.get(`http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline${categoryFilter ? `&brand=${categoryFilter}` : ''}`);
+    console.log(allProducts);
+    const offset = (currentPage - 1) * itemsPerPage;
+    const productsOnPage = allProducts.slice(offset, offset + itemsPerPage);
+    setProducts(productsOnPage);
+    const total = Math.ceil(allProducts.length / itemsPerPage);
+    setTotalPages(total);
+  } catch (error) {
+    console.error('Error fetching products:', error);
   }
+}
 
+  const handleCategoryFilter = (e) => {
+    setCategoryFilter(e.target.value);
+    setCurrentPage(1); 
+  };
+  
   useEffect(() => {
     getProducts();
-  }, [currentPage]);
+  }, [currentPage, categoryFilter]);
+  
+  
 
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
@@ -109,6 +117,18 @@ const handleAddToCart = (product) => {
           No matches found.
         </div>
       )}
+<div className="category-filter row">
+  <select value={categoryFilter} onChange={handleCategoryFilter} className="form-control col-md-4 col-sm-6 col-12">
+    <option value="">All categories</option>
+    <option value="powder">powder</option>
+    <option value="cream">cream</option>
+    <option value="mineral">mineral</option>
+    <option value="liquid">liquid</option>
+    <option value="palette">palette</option>
+    <option value="pencil">pencil</option>
+    <option value="lipstick">lipstick</option>
+  </select>
+</div>
 
       <div className='row'>
         {products.length > 0 ? (
