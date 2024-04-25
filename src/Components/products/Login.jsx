@@ -16,9 +16,7 @@ const Login = () => {
               .min(6, 'Password must be at least 6 characters'),
           })}
           onSubmit={(values, { setSubmitting }) => {
-            // Perform login logic here
             console.log(values);
-            // Assuming login is successful, store user data in local storage
             localStorage.setItem('userData', JSON.stringify(values));
             alert('Login successful you can add products to your cart now.');
            
